@@ -25,7 +25,7 @@ There wasn't really a scenario that came along with the requirements, but with t
 To demonstrate a thing or two, I did set things up to reject a change submitted by user 2 for a playlist owned by user 1. Of course, it doesn't actually have a user table and authentication information, so to make sense the idea I went with is that the logs or system providing the changes is trusted to know and accurately report who requested each change, but does not know whether the change was permitted.
 
 With that in mind:
-##Senario 1
+## Senario 1
 A user with an id of 1 added a single song to the 4th position of an existing playlist with an id of 4
 ### Example Change Object
 `
@@ -38,11 +38,12 @@ A user with an id of 1 added a single song to the 4th position of an existing pl
                   "song_ids": "20" 
           }
 `
-A change object like the above can be constructed. The optional position argument is the location to start the insert in an array (starting at 0), and if omitted the song(s) will be appended to the playlist. If multiple songs were inserted at once an array of song ids is accepted.
+
+The optional position argument is the location to start the insert in an array (starting at 0), and if omitted the song(s) will be appended to the playlist. If multiple songs were inserted at once an array of song ids is accepted.
 ### Expected Result
 The playlist song ids would go from something like [ 1, 2, 3, 4, 5 ] to [ 1, 2, 3, 4, 20, 5] if it is owned by user 1, otherwise no playlists are changed.
 
-##Senario 2
+## Senario 2
 A user with an id of 1 created a new playlist with 4 songs.
 ### Example Change Object
 `
@@ -53,11 +54,10 @@ A user with an id of 1 created a new playlist with 4 songs.
                   "song_ids": [ "1", "2", "3", "4" ] 
           }
 `
-A change object like the above can be constructed.
 ### Expected Result
 A new playlist with a unique id, the provided songs, and an association with the users account) will be created.
 
-##Senario 3
+## Senario 3
 A user with an id of 2 issued a delete for a playlist with the id of 1
 ### Example Change Object
 `
