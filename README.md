@@ -68,7 +68,7 @@ A user with an id of 2 issued a delete for a playlist with the id of 1
 		  "playlist_id": "1"
           }
 `
-A change object like the above can be constructed.
+
 ### Expected Result
 If it is associated with user 2, the playlist with id 1 would be deleted and future attempts to modify that playlist would do nothing.
 
@@ -94,7 +94,9 @@ The provided change example in tests/allinone.json include
 * edits from one user trying to impact another user's playlist
 * repeated deletes of the same playlist
 
-Due to this you should get a console error about a PUT change and two warnings about missing playlists when you run with allinone.js, like the following:
+### Expected console and file output using tests/allinone.json 
+Due to the intentional erroneous changes you should get a console error about a PUT change and two warnings about missing playlists when you run with allinone.json
+
 `
 node tests/allinone.json tests/allinone.json output.json
 Cannot process requested change { time: 1649285466003,
@@ -107,6 +109,7 @@ No support for requested method: PUT
 Playlist id 1 not found under user id 3
 Playlist id 1 not found under user id 2
 `
+
 In that example, the resulting output.json I get is in the tests folder for comparison.  Alternatively, you could check the sha256 as it has an sha256sum of a06121d38877e71a320f149c1550468ced24373778485161ae9ebb220da3330a without a newline at the end of the file or 4b97cb509fa4baa61037768528b4e17ef214f3170d3c9899028aa12c7e81ed32 with one. If you can't verify you're getting the same result as me with the file or either checksum here, it differs by the input/change file by not having the changes array, not having playlist 1, having playlist 4 with song 20 somewhere in the middle, and playlist id 2 got songs 12 and 13 added to the front.
 
 # Scaling Up
